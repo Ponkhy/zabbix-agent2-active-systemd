@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>7.2</version>
+    <template_groups>
+        <template_group>
+            <uuid>a571c0d144b14fd4a87a9d9b2aa9fcd6</uuid>
+            <name>Templates/Applications</name>
+        </template_group>
+    </template_groups>
+    <templates>
+        <template>
+            <uuid>7498ffd7682a403b942ee1f2b75ec1a2</uuid>
+            <template>Systemd - Active - SYSTEMD_NAME</template>
+            <name>Systemd - Active - SYSTEMD_NAME</name>
+            <groups>
+                <group>
+                    <name>Templates/Applications</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>44996493fdb64ff78412d7187dd0efe1</uuid>
+                    <name>Systemd Service Status: SYSTEMD_NAME</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>systemd.status[SYSTEMD_NAME]</key>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>component</tag>
+                            <value>application</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>88c5a865427e451ab38db2edb6d1ab6f</uuid>
+                            <expression>find(/Systemd - Active - SYSTEMD_NAME/systemd.status[SYSTEMD_NAME],5,&quot;like&quot;,&quot;inactive&quot;)=1 or find(/Systemd - Active - SYSTEMD_NAME/systemd.status[SYSTEMD_NAME],5,&quot;like&quot;,&quot;failed&quot;)=1</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>find(/Systemd - Active - SYSTEMD_NAME/systemd.status[SYSTEMD_NAME],5,&quot;like&quot;,&quot;active&quot;)=1</recovery_expression>
+                            <name>Systemd: SYSTEMD_NAME is down</name>
+                            <priority>HIGH</priority>
+                            <manual_close>YES</manual_close>
+                            <tags>
+                                <tag>
+                                    <tag>scope</tag>
+                                    <value>availability</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <tags>
+                <tag>
+                    <tag>class</tag>
+                    <value>software</value>
+                </tag>
+                <tag>
+                    <tag>target</tag>
+                    <value>systemd</value>
+                </tag>
+            </tags>
+        </template>
+    </templates>
+</zabbix_export>
